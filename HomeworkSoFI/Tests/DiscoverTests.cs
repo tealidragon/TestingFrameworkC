@@ -16,7 +16,6 @@ namespace HomeworkSoFI
         [TestInitialize]
         public void TestWork()
         {
-            string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
             if (apiKey == null)
                 throw new Exception("You have not entered an api Key");
         }

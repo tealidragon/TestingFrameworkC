@@ -1,17 +1,24 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net.TMDb;
+using System.Threading.Tasks;
 
 namespace HomeworkSoFI
 {
     [TestClass]
     public class DiscoverTests
     {
+
         private const string apiKey = null;
         private static ServiceClient client = new ServiceClient(apiKey);
-        private static Movie movie = new Movie();
 
-        
+        [TestInitialize]
+        public void TestWork()
+        {
+            if (apiKey == null)
+                throw new Exception("You have not entered an api Key");
+        }
+
 
         /// <summary>
         /// Assert the movie result returned has movieId.
@@ -19,31 +26,16 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieIdIsAsExpected()
         {
-            try
+            //TODO
+            var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
+            var results = discover.Result.Results;
+
+            int movieId;
+            foreach (Movie m in results)
             {
-
-                //
-                if (apiKey != null)
-                {
-                    //Test
-                    //TODO test movieId
-                    var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
-                    var results = discover.Result.Results;
-
-                    int movieId;
-                    foreach (Movie m in results)
-                    {
-                        movieId = m.Id;
-                        Assert.AreEqual(321612, movieId);
-                        break;
-                    }
-                }
-                else throw new Exception("You have not entered a valid api Key");
-            }
-            catch (Exception)
-            {
-
-                throw;
+                movieId = m.Id;
+                Assert.AreEqual(321612, movieId);
+                break;
             }
         }
 
@@ -53,20 +45,19 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieReleaseDateIsWithinTheYearProvided()
         {
-            if (apiKey != null)
-            {
-                var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
-                var results = discover.Result.Results;
 
-                DateTime? moiveReleaseDate;
-                foreach (Movie m in results)
-                {
-                    moiveReleaseDate = m.ReleaseDate;
-                    Assert.IsTrue(moiveReleaseDate.Value.Year >= DateTime.Now.Year);
-                    break;
-                }
+            //TODO
+            var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
+            var results = discover.Result.Results;
+
+            DateTime? movieReleaseDate;
+            foreach (Movie m in results)
+            {
+                movieReleaseDate = m.ReleaseDate;
+                Assert.IsTrue(movieReleaseDate.Value.Year >= DateTime.Now.Year);
+                break;
             }
-            else throw new Exception("You have not entered a valid api Key");
+
         }
 
         /// <summary>
@@ -75,21 +66,17 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieTitleIsAsExpected()
         {
-            if (apiKey != null)
-            {
-                //TODO test movie title is as expected according to input
-                var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
-                var results = discover.Result.Results;
+            //TODO
+            var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
+            var results = discover.Result.Results;
 
-                string movieTitle;
-                foreach (Movie m in results)
-                {
-                    movieTitle = m.Title;
-                    Assert.AreEqual("Beauty and the Beast", m.Title);
-                    break;
-                }
+            string movieTitle;
+            foreach (Movie m in results)
+            {
+                movieTitle = m.Title;
+                Assert.AreEqual("Beauty and the Beast", m.Title);
+                break;
             }
-            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -98,20 +85,16 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieTitleIsNotNull()
         {
-            if (apiKey != null)
-            {
-                //TODO test the movie title property is not null or empty.
-                var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None).Result.Results;
+            //TODO
+            var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None).Result.Results;
 
-                string movieTitle;
-                foreach (Movie m in discover)
-                {
-                    movieTitle = m.Title;
-                    Assert.IsNotNull(m.Title);
-                    break;
-                }
+            string movieTitle;
+            foreach (Movie m in discover)
+            {
+                movieTitle = m.Title;
+                Assert.IsNotNull(m.Title);
+                break;
             }
-            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -120,19 +103,16 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateAdultMoviesAreNotReturned()
         {
-            if (apiKey != null)
-            {
-                //TODO test include Adult false
 
-                //Discover movies that are not 'Adult' by passing in false for includeAdult parameter.
+            //TODO test include Adult false
 
-                //Validate each result 'Adult' param is false.
-                
-                //Need to test this to ensure kid friendly results are returned, and so parent's won't get mad.
+            //Discover movies that are not 'Adult' by passing in false for includeAdult parameter.
 
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            //Validate each result 'Adult' param is false.
+
+            //Need to test this to ensure kid friendly results are returned, and so parent's won't get mad.
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -141,19 +121,15 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateResultsReturnOnlyMoviesWithVoteAverageAbove70PercentThreshold()
         {
-            if (apiKey != null)
-            {
-                //TODO test region
+            //TODO test region
 
-                //Discover movies that are above the 70% threshold. Pass in a decimal for voter average
+            //Discover movies that are above the 70% threshold. Pass in a decimal for voter average
 
-                //Validate for each result the voter average is 70% or greater.
+            //Validate for each result the voter average is 70% or greater.
 
-                //Need to test this to ensure that we are only recommending movies that are discovered to have a 70% or better voting average. Our users want to be able to trust that a recommended is really as good as we think it is.
+            //Need to test this to ensure that we are only recommending movies that are discovered to have a 70% or better voting average. Our users want to be able to trust that a recommended is really as good as we think it is.
 
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -162,21 +138,17 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateOverviewExistsAndContainsKeyword()
         {
-            if (apiKey != null)
-            {
-                //TODO test overview contains keyword
+            //TODO test overview contains keyword
 
-                //Discover movies
+            //Discover movies
 
-                //Validate that there is an overview-description of the movie
+            //Validate that there is an overview-description of the movie
 
-                //Validate if there is a keyword within the overview description
+            //Validate if there is a keyword within the overview description
 
-                //This test is an exploratory-like test to make sure the overview description summarizes the movie we are expection to find. An action movie should have action in the overview. --Note this could be a fragile- or one-off tests that we use to verify that overview has meaning.
+            //This test is an exploratory-like test to make sure the overview description summarizes the movie we are expection to find. An action movie should have action in the overview. --Note this could be a fragile- or one-off tests that we use to verify that overview has meaning.
 
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -185,19 +157,15 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateOriginalLanguageIsUsersLanguage(string userLanguage = "de-DE")
         {
-            if (apiKey != null)
-            {
-                //TODO test user local language discovers movies local to them.
+            //TODO test user local language discovers movies local to them.
 
-                //Discover movies with a different userLanguage
+            //Discover movies with a different userLanguage
 
-                //Validate Original language is userlanguage.
+            //Validate Original language is userlanguage.
 
-                //This could be useful to verify localization of the APIs. Users with different locales should discover tests local to them, unless specified for other language.
+            //This could be useful to verify localization of the APIs. Users with different locales should discover tests local to them, unless specified for other language.
 
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -206,16 +174,12 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieHasGenreIds()
         {
-            if (apiKey != null)
-            {
-                //TODO test movie has Genres
+            //TODO test movie has Genres
 
-                //We want to make sure that our users can process movies by category and genre is the best way to do this. 
+            //We want to make sure that our users can process movies by category and genre is the best way to do this. 
 
-                //Make sure the returned movie as at least one genreId.
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            //Make sure the returned movie as at least one genreId.
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -224,19 +188,15 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateOnlyMoviesWithNumberOfVoteGreaterThan100AreDiscovered()
         {
-            if (apiKey != null)
-            {
-                //TODO test movies with a vote_count equal to or greater than 100 are discovered
+            //TODO test movies with a vote_count equal to or greater than 100 are discovered
 
-                //Discover tests with vote count set to 100
+            //Discover tests with vote count set to 100
 
-                //Assert each returned result is as expected to be 100 vote_count or greater.
+            //Assert each returned result is as expected to be 100 vote_count or greater.
 
-                //We want to make sure that we are disovering movies that have some repertoire within the community.
+            //We want to make sure that we are disovering movies that have some repertoire within the community.
 
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -245,20 +205,16 @@ namespace HomeworkSoFI
         [TestMethod]
         public void Validate10YearsInTheFutureDoesNotReturnMovies()
         {
-            if (apiKey != null)
-            {
-                //TODO test language input
+            //TODO test language input
 
-                //Discover tests with a Year that is set 10 years in the future
+            //Discover tests with a Year that is set 10 years in the future
 
-                //We don't expect the database to have record of movies that will release 10 years from now
+            //We don't expect the database to have record of movies that will release 10 years from now
 
-                //Assert that no results are returned.
+            //Assert that no results are returned.
 
-                //We want to make sure that we aren't try to be clairvoyant and bog down are system by keeping results that could change, and aren't set in stone.
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            //We want to make sure that we aren't try to be clairvoyant and bog down are system by keeping results that could change, and aren't set in stone.
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -267,18 +223,14 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateFutureYearReleasesWithin1YearsAreReturned()
         {
-            if (apiKey != null)
-            {
-                //TODO test region
+            //TODO test region
 
-                //Discover tests with Year+1 
+            //Discover tests with Year+1 
 
-                //Assert that results are returned.
+            //Assert that results are returned.
 
-                //Need to make sure that we can see what is coming up in the next year so that our users can look forward to movies they have been hoping to see
-                throw new NotImplementedException();
-            }
-            else throw new Exception("You have not entered a valid api Key");
+            //Need to make sure that we can see what is coming up in the next year so that our users can look forward to movies they have been hoping to see
+            throw new NotImplementedException();
         }
 
     }

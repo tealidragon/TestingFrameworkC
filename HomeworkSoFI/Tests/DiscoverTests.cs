@@ -1,20 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net.TMDb;
-using System.Threading.Tasks;
+using System.Configuration;
 
 namespace HomeworkSoFI
 {
     [TestClass]
     public class DiscoverTests
     {
+        static string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
+        ServiceClient client = new ServiceClient(apiKey);
 
-        private const string apiKey = null;
-        private static ServiceClient client = new ServiceClient(apiKey);
+
 
         [TestInitialize]
         public void TestWork()
         {
+            string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
             if (apiKey == null)
                 throw new Exception("You have not entered an api Key");
         }

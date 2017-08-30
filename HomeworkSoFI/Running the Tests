@@ -1,0 +1,18 @@
+To Run Tests:
+
+Visual Studio 2015 installed.
+Open up Test Context Menu from the top menu bar. Move pointer to Windows> Test Explorer
+
+Test Explorer is where the tests can be ran and debugged from.
+
+Under the Tests folder in the 'DiscoverTests.cs, set the const string apiKey variable. This is needed in order to call the Discover API.
+These test Discover API:
+ValidateMovieIdIsAsExpected is implemented.
+ValidateMovieReleaseDateIsWithinTheYearProvided is implemented.
+ValidateMovieTitleIsAsExpected is implemented.
+ValidateMovieTitleIsNotNull is implemented.
+
+All other tests at this time will throw a 'NotImplementedException'
+
+This project is using the Hasseware.Net.TMDb wrapper for The MovideDatabase APIs.
+

@@ -11,6 +11,8 @@ namespace HomeworkSoFI
         private static ServiceClient client = new ServiceClient(apiKey);
         private static Movie movie = new Movie();
 
+        
+
         /// <summary>
         /// Assert the movie result returned has movieId.
         /// </summary>
@@ -25,7 +27,6 @@ namespace HomeworkSoFI
                 {
                     //Test
                     //TODO test movieId
-                    DateTime date = new DateTime(2017, 03, 16);
                     var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
                     var results = discover.Result.Results;
 
@@ -37,6 +38,7 @@ namespace HomeworkSoFI
                         break;
                     }
                 }
+                else throw new Exception("You have not entered a valid api Key");
             }
             catch (Exception)
             {
@@ -53,7 +55,6 @@ namespace HomeworkSoFI
         {
             if (apiKey != null)
             {
-                DateTime date = new DateTime(2017, 03, 16);
                 var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
                 var results = discover.Result.Results;
 
@@ -65,7 +66,7 @@ namespace HomeworkSoFI
                     break;
                 }
             }
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -76,8 +77,7 @@ namespace HomeworkSoFI
         {
             if (apiKey != null)
             {
-                //TODO test language input
-                DateTime date = new DateTime(2017, 03, 16);
+                //TODO test movie title is as expected according to input
                 var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
                 var results = discover.Result.Results;
 
@@ -89,7 +89,7 @@ namespace HomeworkSoFI
                     break;
                 }
             }
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -100,21 +100,18 @@ namespace HomeworkSoFI
         {
             if (apiKey != null)
             {
-                //TODO test region
-                DateTime date = new DateTime(2017, 03, 16);
-                var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
-                var results = discover.Result.Results;
+                //TODO test the movie title property is not null or empty.
+                var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None).Result.Results;
 
                 string movieTitle;
-                foreach (Movie m in results)
+                foreach (Movie m in discover)
                 {
                     movieTitle = m.Title;
                     Assert.IsNotNull(m.Title);
                     break;
                 }
             }
-
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -130,9 +127,12 @@ namespace HomeworkSoFI
                 //Discover movies that are not 'Adult' by passing in false for includeAdult parameter.
 
                 //Validate each result 'Adult' param is false.
+                
+                //Need to test this to ensure kid friendly results are returned, and so parent's won't get mad.
 
                 throw new NotImplementedException();
             }
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -149,9 +149,11 @@ namespace HomeworkSoFI
 
                 //Validate for each result the voter average is 70% or greater.
 
+                //Need to test this to ensure that we are only recommending movies that are discovered to have a 70% or better voting average. Our users want to be able to trust that a recommended is really as good as we think it is.
+
                 throw new NotImplementedException();
             }
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -168,10 +170,13 @@ namespace HomeworkSoFI
 
                 //Validate that there is an overview-description of the movie
 
-                //Validate if there is a keywork within the overview description
+                //Validate if there is a keyword within the overview description
+
+                //This test is an exploratory-like test to make sure the overview description summarizes the movie we are expection to find. An action movie should have action in the overview. --Note this could be a fragile- or one-off tests that we use to verify that overview has meaning.
 
                 throw new NotImplementedException();
             }
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -182,15 +187,17 @@ namespace HomeworkSoFI
         {
             if (apiKey != null)
             {
-                //TODO test region
+                //TODO test user local language discovers movies local to them.
 
                 //Discover movies with a different userLanguage
 
                 //Validate Original language is userlanguage.
 
+                //This could be useful to verify localization of the APIs. Users with different locales should discover tests local to them, unless specified for other language.
+
                 throw new NotImplementedException();
             }
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -201,9 +208,14 @@ namespace HomeworkSoFI
         {
             if (apiKey != null)
             {
-                //TODO test language input
+                //TODO test movie has Genres
+
+                //We want to make sure that our users can process movies by category and genre is the best way to do this. 
+
+                //Make sure the returned movie as at least one genreId.
                 throw new NotImplementedException();
             }
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -220,9 +232,11 @@ namespace HomeworkSoFI
 
                 //Assert each returned result is as expected to be 100 vote_count or greater.
 
+                //We want to make sure that we are disovering movies that have some repertoire within the community.
+
                 throw new NotImplementedException();
             }
-
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -239,10 +253,12 @@ namespace HomeworkSoFI
 
                 //We don't expect the database to have record of movies that will release 10 years from now
 
-
                 //Assert that no results are returned.
+
+                //We want to make sure that we aren't try to be clairvoyant and bog down are system by keeping results that could change, and aren't set in stone.
                 throw new NotImplementedException();
             }
+            else throw new Exception("You have not entered a valid api Key");
         }
 
         /// <summary>
@@ -258,8 +274,11 @@ namespace HomeworkSoFI
                 //Discover tests with Year+1 
 
                 //Assert that results are returned.
+
+                //Need to make sure that we can see what is coming up in the next year so that our users can look forward to movies they have been hoping to see
                 throw new NotImplementedException();
             }
+            else throw new Exception("You have not entered a valid api Key");
         }
 
     }

@@ -27,7 +27,6 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieIdIsAsExpected()
         {
-            //TODO
             var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
             var results = discover.Result.Results;
 
@@ -46,8 +45,6 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieReleaseDateIsWithinTheYearProvided()
         {
-
-            //TODO
             var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
             var results = discover.Result.Results;
 
@@ -67,7 +64,6 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieTitleIsAsExpected()
         {
-            //TODO
             var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None);
             var results = discover.Result.Results;
 
@@ -86,7 +82,6 @@ namespace HomeworkSoFI
         [TestMethod]
         public void ValidateMovieTitleIsNotNull()
         {
-            //TODO
             var discover = client.Movies.DiscoverAsync("en-US", false, 2017, null, null, null, null, null, "", 1, System.Threading.CancellationToken.None).Result.Results;
 
             string movieTitle;

@@ -7,7 +7,7 @@ namespace HomeworkSoFI
     [TestClass]
     public class DiscoverTests
     {
-        private const string apiKey = "1a03c1afdb5e6e0cc3c88dc5ae95a23b";
+        private const string apiKey = null;
         private static ServiceClient client = new ServiceClient(apiKey);
         private static Movie movie = new Movie();
 
